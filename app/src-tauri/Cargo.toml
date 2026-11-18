@@ -1,0 +1,49 @@
+[package]
+name = "jarvis-app"
+version.workspace = true
+edition.workspace = true
+description = "J.A.R.V.I.S. desktop shell (Tauri 2) hosting jarvis-core"
+
+[lib]
+name = "jarvis_app_lib"
+crate-type = ["rlib"]
+
+[[bin]]
+name = "jarvis"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build = { version = "2.7", features = [] }
+
+[dependencies]
+anyhow = "1"
+async-trait = "0.1"
+jarvis-brain = { path = "../../crates/jarvis-brain" }
+jarvis-control = { path = "../../crates/jarvis-control" }
+jarvis-core = { path = "../../crates/jarvis-core" }
+jarvis-sysintel = { path = "../../crates/jarvis-sysintel" }
+jarvis-tts = { path = "../../crates/jarvis-tts" }
+jarvis-vision = { path = "../../crates/jarvis-vision" }
+jarvis-voice = { path = "../../crates/jarvis-voice" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tauri = { version = "2.12", default-features = false, features = ["wry", "tray-icon", "common-controls-v6", "compression"] }
+tauri-plugin-autostart = "2.7"
+tauri-plugin-global-shortcut = "2.4"
+tauri-plugin-notification = "2"
+tauri-plugin-single-instance = "2.5"
+tokio = { version = "1", default-features = false, features = ["sync", "rt", "time"] }
+reqwest = { version = "0.13", default-features = false, features = ["rustls"] }
+sha2 = "0.10"
+zip = { version = "2", default-features = false, features = ["deflate"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", default-features = false, features = ["fmt", "std"] }
+
+[dev-dependencies]
+tempfile = "3"
+windows = { version = "0.58", features = ["Win32_Foundation", "Win32_Graphics_Gdi", "Win32_System_LibraryLoader", "Win32_System_Threading", "Win32_UI_WindowsAndMessaging"] }
+tokio = { version = "1", default-features = false, features = ["sync", "rt", "time", "macros", "test-util"] }
+
+[features]
+# Used by `tauri build`; keeps the production asset protocol.
+custom-protocol = ["tauri/custom-protocol"]

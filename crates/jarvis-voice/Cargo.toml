@@ -1,0 +1,22 @@
+[package]
+name = "jarvis-voice"
+version.workspace = true
+edition.workspace = true
+description = "Always-on voice front: capture, RNNoise, VAD, Vosk wake word, push-to-talk"
+
+[dependencies]
+async-trait = "0.1"
+cpal = "0.18"
+hound = "3.5"
+jarvis-core = { path = "../jarvis-core" }
+nnnoiseless = { version = "0.5", default-features = false }
+rubato = "5"
+thiserror = "2"
+tokio = { version = "1", default-features = false, features = ["rt", "sync", "time"] }
+tracing = "0.1"
+vosk = "0.3"
+webrtc-vad = "0.4"
+
+[dev-dependencies]
+tempfile = "3"
+tokio = { version = "1", default-features = false, features = ["rt", "sync", "time", "macros", "test-util"] }

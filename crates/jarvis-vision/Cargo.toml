@@ -1,0 +1,35 @@
+[package]
+name = "jarvis-vision"
+version.workspace = true
+edition.workspace = true
+description = "Screen vision on demand: monitor/active-window capture in memory, Windows OCR, local VLM through Ollama (images never leave the machine without two flags)"
+
+[dependencies]
+base64 = "0.23"
+png = "0.18"
+reqwest = { version = "0.13", default-features = false, features = ["rustls"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+tokio = { version = "1", default-features = false, features = ["rt", "time", "macros", "sync"] }
+tracing = "0.1"
+windows = { version = "0.58", features = [
+    "Foundation_Collections",
+    "Globalization",
+    "Graphics_Imaging",
+    "Media_Ocr",
+    "Storage_Streams",
+    "Win32_Foundation",
+    "Win32_Graphics_Dwm",
+    "Win32_Graphics_Gdi",
+    "Win32_Storage_Xps",
+    "Win32_System_Com",
+    "Win32_System_SystemInformation",
+    "Win32_System_Threading",
+    "Win32_UI_HiDpi",
+    "Win32_UI_Shell",
+    "Win32_UI_WindowsAndMessaging",
+] }
+
+[dev-dependencies]
+tokio = { version = "1", default-features = false, features = ["rt", "macros", "time", "net", "io-util", "sync"] }

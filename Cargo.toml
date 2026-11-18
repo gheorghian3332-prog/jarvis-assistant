@@ -1,0 +1,13 @@
+[workspace]
+members = ["crates/jarvis-core", "crates/jarvis-voice", "crates/jarvis-tts", "crates/jarvis-control", "crates/jarvis-sysintel", "crates/jarvis-vision", "crates/jarvis-brain", "crates/jarvisd", "app/src-tauri"]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+version = "0.2.0"
+
+[profile.release]
+lto = "thin"
+opt-level = 3
+codegen-units = 1
+strip = true

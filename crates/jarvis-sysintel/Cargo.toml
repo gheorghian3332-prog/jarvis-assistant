@@ -1,0 +1,39 @@
+[package]
+name = "jarvis-sysintel"
+version.workspace = true
+edition.workspace = true
+description = "System intelligence: real system metrics (CPU, GPU via NVML, RAM, disks, network, hung windows, crashes) and the alert engine"
+
+[dependencies]
+async-trait = "0.1"
+jarvis-core = { path = "../jarvis-core" }
+nvml-wrapper = "0.10"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sysinfo = { version = "0.32", default-features = false, features = ["system"] }
+thiserror = "2"
+tokio = { version = "1", default-features = false, features = ["rt", "sync", "time", "macros", "process", "io-util"] }
+tracing = "0.1"
+windows = { version = "0.58", features = [
+    "Wdk_Graphics_Direct3D",
+    "Win32_Foundation",
+    "Win32_NetworkManagement_IpHelper",
+    "Win32_NetworkManagement_Ndis",
+    "Win32_Security",
+    "Win32_Storage_FileSystem",
+    "Win32_System_Com",
+    "Win32_System_Diagnostics_Debug",
+    "Win32_System_EventLog",
+    "Win32_System_IO",
+    "Win32_System_Ioctl",
+    "Win32_System_Ole",
+    "Win32_System_SystemInformation",
+    "Win32_System_Threading",
+    "Win32_System_Variant",
+    "Win32_System_Wmi",
+    "Win32_UI_WindowsAndMessaging",
+] }
+
+[dev-dependencies]
+tokio = { version = "1", default-features = false, features = ["rt", "macros", "time", "test-util", "sync"] }
+

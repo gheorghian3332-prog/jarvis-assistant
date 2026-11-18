@@ -1,0 +1,39 @@
+J.A.R.V.I.S. Assistant
+Copyright 2026 J.A.R.V.I.S. Assistant contributors
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+"J.A.R.V.I.S." is the name of a fan project. It is not affiliated with, endorsed by or
+sponsored by Marvel, Disney or any of their subsidiaries.
+
+This product includes or downloads the third-party components listed below. They are
+distributed under their own licenses. Nothing below is relicensed by this project.
+
+Libraries linked into or shipped with the application
+-----------------------------------------------------
+- Tauri (tauri-apps/tauri) - Apache-2.0 OR MIT
+- three.js (mrdoob/three.js) - MIT
+- React Three Fiber (pmndrs/react-three-fiber) - MIT
+- React, React DOM - MIT
+- Vosk API (alphacep/vosk-api), libvosk - Apache-2.0
+- uv (astral-sh/uv), shipped as uv.exe in the installer - Apache-2.0 OR MIT
+- Rust crates from crates.io (see Cargo.lock): each under its own license, mostly MIT and/or Apache-2.0
+- npm packages (see app/package-lock.json): each under its own license, mostly MIT
+- Python packages of the workers (see workers/*/uv.lock): faster-whisper (MIT),
+  CTranslate2 (MIT), kokoro-onnx (MIT), ONNX Runtime (MIT), NumPy (BSD-3-Clause)
+- Fonts Inter (SIL Open Font License 1.1) and JetBrains Mono (SIL Open Font License 1.1),
+  bundled with the user interface
+
+Models and tools downloaded by the user (not part of this repository or of the installer)
+-----------------------------------------------------------------------------------------
+- Vosk model vosk-model-small-ru-0.22 (alphacep) - Apache-2.0
+- Whisper models (OpenAI), used through faster-whisper - MIT
+- Piper TTS (rhasspy/piper, OHF-Voice) - MIT
+- Piper voice ru_RU-dmitri-medium (rhasspy/piper-voices on Hugging Face) - dataset license CC0
+  according to its model card; the voice was fine-tuned from a base model trained on the
+  Hi-Fi TTS corpus (CC BY 4.0). Check the model card before any redistribution.
+- Kokoro v1.0 model and voices (hexgrad / thewh1teagle kokoro-onnx releases) - Apache-2.0
+- Ollama (ollama.com) and the language models it runs - optional, installed and downloaded by
+  the user; every model has its own license, read it before use.
+
+Full license texts are available in the respective upstream projects.

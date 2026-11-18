@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: windows-latest
+    timeout-minutes: 60
+    env:
+      JARVIS_MODELS_DIR: ${{ github.workspace }}\.models
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - name: Rust toolchain
+        shell: pwsh
+        run: rustup component add rustfmt clippy
+
+      - uses: Swatinem/rust-cache@v2
+
+      - uses: astral-sh/setup-uv@v5
+
+      - name: Cache Vosk library and model
+        uses: actions/cache@v4
+        with:
+          path: .models
+          key: vosk-0.3.45-small-ru-0.22
+
+      - name: Fetch libvosk and the Vosk model
+        shell: pwsh
+        run: ./scripts/fetch-models.ps1
+
+      - name: Stage development resources
+        shell: pwsh
+        run: ./scripts/stage-dev-resources.ps1
+
+      - name: Frontend
+        shell: pwsh
+        run: |
+          npm ci --prefix app
+          npm run typecheck --prefix app
+          npm run lint --prefix app
+          npm test --prefix app
+          npm run build --prefix app
+
+      - name: Rust
+        shell: pwsh
+        run: |
+          $env:Path = "$env:JARVIS_MODELS_DIR\libvosk;$env:Path"
+          cargo fmt --check
+          cargo clippy --workspace --all-targets -- -D warnings
+          cargo test --workspace
+
+      - name: Python workers
+        shell: pwsh
+        run: |
+          foreach ($w in 'stt', 'tts_kokoro') {
+            Push-Location "workers/$w"
+            uv run ruff check .
+            uv run ruff format --check .
+            uv run mypy .
+            uv run pytest -m "not slow"
+            Pop-Location
+          }

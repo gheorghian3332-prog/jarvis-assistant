@@ -1,0 +1,29 @@
+[package]
+name = "jarvis-brain"
+version.workspace = true
+edition.workspace = true
+description = "Local AI brain: Ollama client, hybrid router (FAST PATH, local LLM, optional cloud), personality and memory"
+
+[lib]
+name = "jarvis_brain"
+path = "src/lib.rs"
+
+[[bin]]
+name = "brain-eval"
+path = "src/bin/brain-eval.rs"
+
+[dependencies]
+async-trait = "0.1"
+jarvis-control = { path = "../jarvis-control" }
+jarvis-core = { path = "../jarvis-core" }
+regex = { version = "1", default-features = false, features = ["std", "unicode-case", "unicode-perl", "perf"] }
+reqwest = { version = "0.13", default-features = false, features = ["rustls"] }
+serde = { version = "1", features = ["derive"] }
+# preserve_order: the answer schema lists "type" first, and the model writes the keys in that order
+serde_json = { version = "1", features = ["preserve_order"] }
+thiserror = "2"
+tokio = { version = "1", default-features = false, features = ["rt", "rt-multi-thread", "sync", "time", "macros", "process", "io-util", "net"] }
+tracing = "0.1"
+
+[dev-dependencies]
+tempfile = "3"
